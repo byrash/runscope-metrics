@@ -27,6 +27,7 @@ type Bucket struct {
 	ProjectName string `json:"name"`
 	Environments
 	Tests
+	HasProductionData bool
 }
 
 type Buckets struct {

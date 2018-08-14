@@ -18,11 +18,11 @@ func GetTestsMetrics(httpClient *http.Client, bucket *Bucket, testsChannel chan 
 	if len(bucket.Environments.Data) == 0 {
 		// No envs dont care and no metrics required
 		testsChannel <- true
+		bucket.HasProductionData = false
 		return
-	}
-	// Should have only one prod enviornment
+	} // Should have only one prod enviornment
+	bucket.HasProductionData = true
 	env := bucket.Environments.Data[0]
-
 	noOfTests := len(bucket.Tests.Data)
 	testChannel := make(chan bool)
 	for i := range bucket.Tests.Data {
@@ -36,6 +36,14 @@ func GetTestsMetrics(httpClient *http.Client, bucket *Bucket, testsChannel chan 
 	// for _, test := range bucket.Tests.Data {
 	// 	log.Printf("%+v", test.TestMetrics)
 	// }
+	hasAnyData := false
+	for _, test := range bucket.Tests.Data {
+		hasAnyData = hasAnyData || (test.AvgRespTimeMs != 0.0 && test.SuccessRate != 0.0)
+		if hasAnyData {
+			break
+		}
+	}
+	bucket.HasProductionData = hasAnyData
 	testsChannel <- true
 }
 

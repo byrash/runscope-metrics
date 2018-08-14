@@ -7,9 +7,11 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"time"
 )
 
 func main() {
+	start := time.Now()
 	defer handlePanic()
 	proxyURL, _ := url.Parse(os.Getenv(ProxyUrlEnvVarKey))
 	httpClient := &http.Client{
@@ -32,6 +34,7 @@ func main() {
 	// 	}
 	// }
 	WriteStatsToExcel(&buckets)
+	log.Println("Completed in", time.Since(start))
 }
 
 func handlePanic() {
