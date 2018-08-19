@@ -37,6 +37,20 @@ func WriteStatsToExcel(buckets *Buckets) {
 				successRateCell.Value = strconv.FormatFloat(test.TestMetrics.SuccessRate, 'f', 2, 64)
 				avgRespTimeMsCell := row.AddCell()
 				avgRespTimeMsCell.Value = strconv.FormatFloat(test.TestMetrics.AvgRespTimeMs, 'f', 2, 64)
+				//Current Period
+				fiftyThRespTimeMsCell := row.AddCell()
+				fiftyThRespTimeMsCell.Value = strconv.FormatFloat(test.TestMetrics.ThisTimePeriod.RespTime50ThPercentile, 'f', 2, 64)
+				nintyFifthThRespTimeMsCell := row.AddCell()
+				nintyFifthThRespTimeMsCell.Value = strconv.FormatFloat(test.TestMetrics.ThisTimePeriod.RespTime95ThPercentile, 'f', 2, 64)
+				nintyNinthThRespTimeMsCell := row.AddCell()
+				nintyNinthThRespTimeMsCell.Value = strconv.FormatFloat(test.TestMetrics.ThisTimePeriod.RespTime99ThPercentile, 'f', 2, 64)
+				// Last Period
+				lastPeriodFiftyThRespTimeMsCell := row.AddCell()
+				lastPeriodFiftyThRespTimeMsCell.Value = strconv.FormatFloat(test.TestMetrics.ChangesFromLastTimePeriod.RespTime50ThPercentile, 'f', 2, 64)
+				lastPeriodNintyFifthThRespTimeMsCell := row.AddCell()
+				lastPeriodNintyFifthThRespTimeMsCell.Value = strconv.FormatFloat(test.TestMetrics.ChangesFromLastTimePeriod.RespTime95ThPercentile, 'f', 2, 64)
+				lastPeriodNintyNinthThRespTimeMsCell := row.AddCell()
+				lastPeriodNintyNinthThRespTimeMsCell.Value = strconv.FormatFloat(test.TestMetrics.ChangesFromLastTimePeriod.RespTime99ThPercentile, 'f', 2, 64)
 				// log.Printf("%+v sucess rate and %+v avg response time for %+v test \n\n", test.TestMetrics.SuccessRate, test.TestMetrics.AvgRespTimeMs, test.Name)
 			}
 		}
