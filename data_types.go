@@ -20,9 +20,9 @@ const (
 
 var (
 	XLSXHeaders = [...]string{"Project Name", "Test Name",
-		"Success Rate percent", "Avg Response Time ms", "Response Time ms 50th percentile",
-		"Response Time ms 95th percentile", "Response Time ms 99th percentile", "Change from Last Period Response Time ms 50th percentile",
-		"Change from Last Period Response Time ms 95th percentile", "Change from Last Period Response Time ms 99th percentile"}
+		"Success Rate percent", "Avg Response Time sec", "Response Time sec 50th percentile",
+		"Response Time sec 95th percentile", "Response Time sec 99th percentile", "Change from Last Period Response Time sec 50th percentile",
+		"Change from Last Period Response Time sec 95th percentile", "Change from Last Period Response Time sec 99th percentile"}
 )
 
 type Bucket struct {
