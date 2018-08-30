@@ -14,8 +14,10 @@ const (
 	GetTestsUrlPattern       = "https://api.runscope.com/buckets/%v/tests?count=9999999"
 	GetTestMetricsUrlPattern = "https://api.runscope.com/buckets/%v/tests/%v/metrics?timeframe=%v&environment_uuid=%v"
 
-	ProxyUrlEnvVarKey          = "PROXY_URL"
-	RunScopeSecretKeyEnvVarKey = "RUN_SCOPE_SECRET_KEY"
+	ProxyUrlEnvVarKey             = "PROXY_URL"
+	RunScopeSecretKeyEnvVarKey    = "RUN_SCOPE_SECRET_KEY"
+	CriticalAppsBucketIdEnvVarKey = "CRITICAL_APPS_BUCKET_ID"
+	RestBucketIdEnvVarKey         = "REST_BUCKET_ID"
 )
 
 var (
@@ -23,6 +25,8 @@ var (
 		"Success Rate percent", "Avg Response Time sec", "Response Time sec 50th percentile",
 		"Response Time sec 95th percentile", "Response Time sec 99th percentile", "Change from Last Period Response Time sec 50th percentile",
 		"Change from Last Period Response Time sec 95th percentile", "Change from Last Period Response Time sec 99th percentile"}
+	RESTHeaders         = [...]string{"API", "Response Rate (sec)", "Availability (%)", "Stability (%)"}
+	CriticalAppsHeaders = [...]string{"Application/Services", "Monthly Avg (sec)", "Monthly Availability (%)"}
 )
 
 type Bucket struct {
@@ -75,4 +79,15 @@ type TestMetrics struct {
 	EnvUUID                   string                  `json:"environment_uuid"`
 	SuccessRate               float64
 	AvgRespTimeMs             float64
+}
+
+type RestMVPData struct {
+	TestId   string
+	TestName string
+	MVPVal   int
+}
+
+type CriticalAppsData struct {
+	TestId   string
+	TestName string
 }

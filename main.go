@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"crypto/tls"
+	"flag"
 	"log"
 	"net/http"
 	"net/url"
@@ -13,7 +14,9 @@ import (
 func main() {
 	start := time.Now()
 	defer handlePanic()
-	proxyURL, _ := url.Parse(os.Getenv(ProxyUrlEnvVarKey))
+	restMVPFile := flag.String("RestMVPFile", "RestMVPData.xlsx", "pass Rest MVP FIle using -RestMVPFile=filename.xlsx")
+	criticalAppsFile := flag.String("CriticalAppsFile", "CriticalAppsData.xlsx", "pass Rest MVP FIle using -CriticalAppsFile=filename.xlsx")
+	proxyURL, _ := url.Parse(ProxyUrl)
 	httpClient := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
@@ -33,7 +36,7 @@ func main() {
 	// 		}
 	// 	}
 	// }
-	WriteStatsToExcel(&buckets)
+	WriteStatsToExcel(&buckets, restMVPFile, criticalAppsFile)
 	log.Println("Completed in", time.Since(start))
 }
 

@@ -5,14 +5,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
 
 	"github.com/pkg/errors"
 )
 
 func SetHeaders(httpReq *http.Request) {
 	httpReq.Header.Set(ContentTypeKey, AppOrJSONContentType)
-	httpReq.Header.Set(AuthKey, fmt.Sprintf(AuthStringPattern, os.Getenv(RunScopeSecretKeyEnvVarKey)))
+	httpReq.Header.Set(AuthKey, fmt.Sprintf(AuthStringPattern, RunScopeSecretKey))
 }
 
 func HandleError(err error, msg string) {
