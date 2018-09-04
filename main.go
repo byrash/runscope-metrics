@@ -36,7 +36,16 @@ func main() {
 	// 		}
 	// 	}
 	// }
-	WriteStatsToExcel(&buckets, restMVPFile, criticalAppsFile)
+	restMvpDataEntriesChan := make(chan map[string]RestMVPData)
+	go ReadRestMvpData(restMVPFile, restMvpDataEntriesChan)
+
+	criticalAppsDataEntriesChan := make(chan map[string]CriticalAppsData)
+	go ReadCriticalAppsData(criticalAppsFile, criticalAppsDataEntriesChan)
+
+	restMvpDataEntries := <-restMvpDataEntriesChan
+	criticalAppsDataEntries := <-criticalAppsDataEntriesChan
+
+	WriteStatsToExcel(&buckets, restMvpDataEntries, criticalAppsDataEntries)
 	log.Println("Completed in", time.Since(start))
 }
 

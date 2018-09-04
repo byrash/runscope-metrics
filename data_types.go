@@ -85,9 +85,13 @@ type RestMVPData struct {
 	TestId   string
 	TestName string
 	MVPVal   int
+	TestData Test
+	Sno      int
 }
 
 type CriticalAppsData struct {
 	TestId   string
 	TestName string
+	TestData Test
+	Sno      int
 }
